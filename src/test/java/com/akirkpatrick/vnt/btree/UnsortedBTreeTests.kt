@@ -4,7 +4,7 @@ import org.junit.Test
 import kotlin.test.assertEquals
 import com.akirkpatrick.vnt.btree.spec.entry
 
-public class OrderedBTreeTests() {
+public class UnsortedBTreeTests() {
     Test fun testBasic() : Unit {
         var btree : BTree<String> = BTree({ EntryImpl(it, sort=false)})
 
@@ -26,7 +26,7 @@ public class OrderedBTreeTests() {
         btree.add("FFF")
 
         entry("BBB") {
-            child("TEST","AAA")
+            child("TEST", "AAA")
             child("CCC", "DDD", "EEE", "FFF")
         }.validate(btree)
     }
@@ -45,7 +45,7 @@ public class OrderedBTreeTests() {
         btree.remove("DDD")
 
         entry("BBB") {
-            child("TEST","AAA")
+            child("TEST", "AAA")
             child("CCC", "FFF", "EEE")
         }.validate(btree)
     }

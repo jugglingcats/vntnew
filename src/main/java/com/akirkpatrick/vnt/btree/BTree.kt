@@ -37,7 +37,7 @@ public class BTree<T: Comparable<T>>(val factory: (Entry<T>?) -> Entry<T>, root:
         var entry: Entry<T> = root
         @main while (true) {
             val i = KeyIterator(entry)
-            for ( val span in i ) {
+            for ( span in i ) {
                 if ( span.equals(value) ) {
                     return entry
                 } else if ( span.spans(value) ) {
@@ -83,7 +83,7 @@ public class BTree<T: Comparable<T>>(val factory: (Entry<T>?) -> Entry<T>, root:
 
     private fun findChildEntryForValue(entry: Entry<T>, value: T): Entry<T> {
         val i = KeyIterator(entry)
-        for ( val span in i ) {
+        for ( span in i ) {
             if ( span.spans(value) ) {
                 return span.child
             }
@@ -91,7 +91,7 @@ public class BTree<T: Comparable<T>>(val factory: (Entry<T>?) -> Entry<T>, root:
         throw IllegalStateException("Failed to find child entry for value!")
     }
 
-    private fun split(var entry: Entry<T>): Unit {
+    private fun split(entry: Entry<T>): Unit {
         val medianIndex: Int = entry.keyCount / 2
         val medianValue = entry.getKey(medianIndex)
 
@@ -164,7 +164,7 @@ public class BTree<T: Comparable<T>>(val factory: (Entry<T>?) -> Entry<T>, root:
         size--
     }
 
-    private fun getRightLeaf(val start: Entry<T>): Entry<T> {
+    private fun getRightLeaf(start: Entry<T>): Entry<T> {
         var entry = start
         while ( entry.hasChildren ) {
             entry = entry.lastChild

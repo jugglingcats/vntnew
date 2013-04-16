@@ -1,14 +1,12 @@
 package com.akirkpatrick.vnt.btree
 
 import com.akirkpatrick.vnt.store.Serializer
-import com.akirkpatrick.vnt.store.ProxyEntry
 
 public class StoredEntry<T : Comparable<T>>(val serializer: Serializer<T>, val offset: Long, parent : Entry<T>?, order : Int)
             : EntryImpl<T>(parent, order=order) {
 
     val keyRefs : Array<Long> = loadKeyRefs();
     val childRefs: Array<Long> = loadChildRefs();
-    val asProxy = ProxyEntry.from(this)
 
     fun loadKeyRefs() : Array<Long> {
         serializer.seek(offset)
@@ -34,8 +32,12 @@ public class StoredEntry<T : Comparable<T>>(val serializer: Serializer<T>, val o
     public override var childCount: Int = childRefs.size
 
     public override fun getChild(index: Int): Entry<T> {
+        return getChild(index, this)
+    }
+
+    public fun getChild(index: Int, parent: Entry<T>) : Entry<T> {
         if ( children[index] == null ) {
-            val value= serializer.readEntry(childRefs[index], asProxy)
+            val value= serializer.readEntry(childRefs[index], parent)
             children[index]=value;
         }
         return super.getChild(index)

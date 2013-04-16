@@ -25,6 +25,14 @@ class DeleteTestsFromDisk : DeleteTestsInMem() {
         return BTree<Char>( {store.createEntry(it)}, store.readRoot(loc), order )
     }
 
+    override fun case1() {
+        super<DeleteTestsInMem>.case1()
+    }
+
+//    override fun case2c() {
+//        super<DeleteTestsInMem>.case2c()
+//    }
+
     override fun cleanup() {
         if ( raf != null ) {
             raf!!.close()

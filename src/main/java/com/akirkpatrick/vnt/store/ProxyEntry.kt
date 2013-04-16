@@ -9,7 +9,7 @@ import com.akirkpatrick.vnt.btree.eachChild
 import com.akirkpatrick.vnt.btree.StoredEntry
 import java.util.HashMap
 
-public class ProxyEntry<T: Comparable<T>> private (var entry: Entry<T>): Entry<T> by entry {
+public class ProxyEntry<T: Comparable<T>> private (var entry: Entry<T>): Entry<T> {
     var mutable = true
     var _offset: Long = 0
 
@@ -29,13 +29,33 @@ public class ProxyEntry<T: Comparable<T>> private (var entry: Entry<T>): Entry<T
     public override fun compareTo(other: Entry<T>): Int = entry.compareTo(other)
 
     public override fun getChild(index: Int) : Entry<T> {
-        return entry.getChild(index)
+        if ( mutable || !(entry is StoredEntry<T>) )
+            return entry.getChild(index)
+
+        // we need to take over here to ensure that the stored entry read
+        // from disk has this as it's parent rather than the delegated entry
+        val storedEntry=entry as StoredEntry<T>
+        return storedEntry.getChild(index, this)
     }
+
+    // would be nice to delegate these but delegate is not currently dynamic
+
+    override val parent: Entry<T>? get() { return entry.parent }
+    override fun setAsRoot() { entry.setAsRoot() }
+    override fun reparent(parent: Entry<T>) { entry.reparent(parent) }
+    public override val keyCount: Int get() { return entry.keyCount }
+    public override val childCount: Int get() { return entry.childCount }
+    override val order: Int get() { return entry.order }
+    override val sort: Boolean get() { return entry.sort }
+    public override fun getKey(index: Int): T { return entry.getKey(index) }
+    override fun indexOf(value: T): Int { return entry.indexOf(value) }
+    override fun indexOf(value: Entry<T>): Int { return entry.indexOf(value) }
+
 
     private fun checkModifiable() {
         if ( !mutable ) {
             // entry is already stored, make a modifiable copy
-            entry = EntryImpl.from(entry)
+            entry = EntryImpl.from(this)
             mutable = true
             if ( parent != null ) {
                 val p : ProxyEntry<T>? = parent as? ProxyEntry<T>?

@@ -49,7 +49,7 @@ open public class DeleteTestsInMem {
         }.validate(btree)
     }
 
-    Test fun case1() {
+    Test open fun case1() {
         val btree = setup()
         try {
             btree.remove('F')
@@ -115,7 +115,7 @@ open public class DeleteTestsInMem {
         }
     }
 
-    Test fun case2c() {
+    Test open fun case2c() {
         val btree = setup()
         try {
             btree.remove('F') // case 1

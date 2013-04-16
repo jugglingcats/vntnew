@@ -115,4 +115,25 @@ public class StoreTests {
         }
     }
 
+    Test fun simpleCreateStoreAdd() {
+        val store : Serializer<Int> = Serializer.fromFilename("test.bin")
+        try {
+            val btree = BTree<Int>({ store.createEntry(it) })
+            for ( i in 1..5 )
+                btree.add(i)
+
+            println(btree.toString())
+
+            val loc = store.persist(btree.getRoot())
+
+            btree.add(98)
+
+            val loc2 = store.persist(btree.getRoot())
+
+            assertFalse(loc == loc2)
+        } finally {
+            store.close()
+        }
+    }
+
 }

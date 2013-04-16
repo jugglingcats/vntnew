@@ -5,7 +5,6 @@ import com.akirkpatrick.vnt.store.Serializer
 import java.io.File
 import java.io.FileOutputStream
 import java.io.RandomAccessFile
-import com.akirkpatrick.vnt.store.ProxyEntry
 import java.io.Serializable
 import java.io.ObjectOutputStream
 import java.util.UUID

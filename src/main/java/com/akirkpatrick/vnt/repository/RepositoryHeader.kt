@@ -76,7 +76,7 @@ public class RepositoryHeader {
         return sb.toString()
     }
 
-    public fun find(val raf : RandomAccessFile) : Long {
+    public fun find(raf : RandomAccessFile) : Long {
         val len=raf.length()
         if ( raf.length() < HEADER_SIZE ) {
             throw IllegalArgumentException("File is too small!")
@@ -95,7 +95,7 @@ public class RepositoryHeader {
         return ris.position + HEADER_START.length
     }
 
-    fun write(val raf : RandomAccessFile, loc : Long = -1.toLong()) {
+    fun write(raf : RandomAccessFile, loc : Long = -1.toLong()) {
         raf.writeBytes(HEADER_START);
         raf.writeLong(loc);
         raf.writeBytes(HEADER_END);
