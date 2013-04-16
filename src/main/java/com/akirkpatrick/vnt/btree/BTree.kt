@@ -10,15 +10,16 @@ public class BTree<T: Comparable<T>>(val factory: (Entry<T>?) -> Entry<T>, root:
     private var minChildrenSize: Int = order + 1
     private var maxKeySize: Int = 2 * order
     private var maxChildrenSize: Int = maxKeySize + 1
-    private var rootInternal: Entry<T> = if ( root != null ) root else factory(null)
+    private var rootEntry: Entry<T> = if ( root != null ) root else factory(null)
     private var size: Int = 0
 
     var ordered : Boolean = true
 
-    val root: Entry<T> get() { return rootInternal }
+    val root: Entry<T> get() { return rootEntry
+    }
 
     public fun add(value: T): Unit {
-        var entry: Entry<T> = rootInternal
+        var entry: Entry<T> = rootEntry
         while (true) {
             if (!entry.hasChildren) {
                 entry.addKey(value)
@@ -34,7 +35,7 @@ public class BTree<T: Comparable<T>>(val factory: (Entry<T>?) -> Entry<T>, root:
     }
 
     public fun findEntry(value: T): Entry<T>? {
-        var entry: Entry<T> = rootInternal
+        var entry: Entry<T> = rootEntry
         @main while (true) {
             val i = KeyIterator(entry)
             for ( span in i ) {
@@ -50,7 +51,7 @@ public class BTree<T: Comparable<T>>(val factory: (Entry<T>?) -> Entry<T>, root:
     }
 
     public fun find(f: (value:T) -> Int) : T? {
-        var entry: Entry<T> = rootInternal
+        var entry: Entry<T> = rootEntry
         var k=0
         while (true) {
             val key=entry.getKey(k)
@@ -97,8 +98,8 @@ public class BTree<T: Comparable<T>>(val factory: (Entry<T>?) -> Entry<T>, root:
 
         fun prepare(): Entry<T> {
             if ( entry.parent == null ) {
-                rootInternal = factory(null)
-                return rootInternal
+                rootEntry = factory(null)
+                return rootEntry
             }
             entry.parent!!.removeChild(entry)
             return entry.parent!!
@@ -203,7 +204,7 @@ public class BTree<T: Comparable<T>>(val factory: (Entry<T>?) -> Entry<T>, root:
             }
             if ( parent.keyCount < order ) {
                 if ( parent.keyCount == 0 ) {
-                    rootInternal =newEntry
+                    rootEntry =newEntry
                 } else {
                     combine(parent)
                 }
