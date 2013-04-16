@@ -11,7 +11,7 @@ public class EntryIterator<T: Comparable<T>>(btree : BTree<T>) : Iterator<Entry<
 
     {
         // init func
-        stack.push(Frame(btree.getRoot(), 0))
+        stack.push(Frame(btree.root, 0))
     }
 
     val frame : Frame

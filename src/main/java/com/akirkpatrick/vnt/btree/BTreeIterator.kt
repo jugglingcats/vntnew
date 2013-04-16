@@ -32,7 +32,7 @@ public class BTreeIterator<T: Comparable<T>>(btree : BTree<T>) : Iterator<T> {
 
     {
         // init func
-        stack.push(Frame(btree.getRoot()))
+        stack.push(Frame(btree.root))
     }
 
     val frame : Frame

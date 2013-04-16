@@ -1,18 +1,18 @@
 package com.akirkpatrick.vnt.btree
 
-class LOW_MATCH<T> : Comparable<T> {
-    public override fun compareTo(other: T): Int = -1
-}
-
-class HIGH_MATCH<T> : Comparable<T> {
-    public override fun compareTo(other: T): Int = 1
-}
-
 public class KeyIterator<T: Comparable<T>>(val entry : Entry<T>) : Iterator<KeySpan<T>> {
     val low_match=LOW_MATCH<T>()
     val high_match=HIGH_MATCH<T>()
     var index = 0
     var prevKey : Comparable<T> = low_match
+
+    class LOW_MATCH<T> : Comparable<T> {
+        public override fun compareTo(other: T): Int = -1
+    }
+
+    class HIGH_MATCH<T> : Comparable<T> {
+        public override fun compareTo(other: T): Int = 1
+    }
 
     public override fun next(): KeySpan<T> {
         val nextKey = if (index < entry.keyCount)

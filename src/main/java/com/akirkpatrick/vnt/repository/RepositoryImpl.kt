@@ -80,7 +80,7 @@ public class RepositoryImpl(filename: String): Repository {
     }
 
     fun commit() {
-        val loc = storage.nodes.store.persist(nodes.getRoot())
+        val loc = storage.nodes.store.persist(nodes.root)
         RepositoryHeader().write(raf, loc)
     }
 }

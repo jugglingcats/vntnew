@@ -71,14 +71,14 @@ class DefaultNodeTypeMapper(val repository: Repository) {
 
     private fun writeChildren(btree: BTree<UUID>?): Long {
         if ( btree != null ) {
-            return repository.storage.refstore.persist(btree.getRoot())
+            return repository.storage.refstore.persist(btree.root)
         }
         return -1.toLong() // indicates that node has no children
     }
 
     private fun writeProperties(btree: BTree<Property>?): Long {
         if ( btree != null ) {
-            return repository.storage.propser.persist(btree.getRoot())
+            return repository.storage.propser.persist(btree.root)
         }
         return -1.toLong() // indicates that node has no properties
     }

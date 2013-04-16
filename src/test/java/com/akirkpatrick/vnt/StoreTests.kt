@@ -83,7 +83,7 @@ public class StoreTests {
                 btree.add(i)
             }
             assertTrue(btree.contains(56))
-            val loc=store.persist(btree.getRoot())
+            val loc=store.persist(btree.root)
 
             val root = store.readRoot(loc)
             val btree2=BTree<Int>({ store.createEntry(it) }, root)
@@ -102,12 +102,12 @@ public class StoreTests {
                 btree.add(i*2)
             }
 
-            val loc = store.persist(btree.getRoot())
+            val loc = store.persist(btree.root)
             println("root offset: " + loc)
 
             btree.add(98)
 
-            val loc2 = store.persist(btree.getRoot())
+            val loc2 = store.persist(btree.root)
 
             assertFalse(loc == loc2)
         } finally {
@@ -124,11 +124,11 @@ public class StoreTests {
 
             println(btree.toString())
 
-            val loc = store.persist(btree.getRoot())
+            val loc = store.persist(btree.root)
 
             btree.add(98)
 
-            val loc2 = store.persist(btree.getRoot())
+            val loc2 = store.persist(btree.root)
 
             assertFalse(loc == loc2)
         } finally {

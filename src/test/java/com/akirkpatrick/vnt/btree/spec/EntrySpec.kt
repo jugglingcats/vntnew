@@ -16,7 +16,7 @@ class ENTRYSPEC<T : Comparable<T>>(val keys: Array<T>) {
     }
 
     fun validate(btree : BTree<T>) {
-        val e=btree.getRoot()
+        val e=btree.root
         try {
             validate(e)
         } catch (e1 : Throwable) {

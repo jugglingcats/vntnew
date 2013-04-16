@@ -20,7 +20,7 @@ class DeleteTestsFromDisk : DeleteTestsInMem() {
         val btree=BTree<Char>( {store.createEntry(it)}, root, order )
         populate(btree)
 
-        val loc=store.persist(btree.getRoot())
+        val loc=store.persist(btree.root)
 
         return BTree<Char>( {store.createEntry(it)}, store.readRoot(loc), order )
     }
