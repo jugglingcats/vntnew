@@ -1,1 +1,6 @@
-This file was created by IntelliJ IDEA 12.0.4 for binding GitHub repository
+VNT (Versioned Node Tree) is a write-only hierarchical database with strong version and merge support.
+
+Inspired by CouchDB's approach to immutable btrees, but instead of providing a single btree,
+each entry is actually a new btree (thus providing hierarchy).
+
+VNT should scale to millions of nodes, each containing potentially millions of children.
