@@ -1,6 +1,18 @@
-VNT (Versioned Node Tree) is a write-only hierarchical database with strong version and merge support.
+VNT (Versioned Node Tree) is a write-only hierarchical database with strong version and 
+merge support.
 
 Inspired by CouchDB's approach to immutable btrees, but instead of providing a single btree,
-each entry is actually a new btree (thus providing hierarchy).
+each entry is actually a new btree (thus providing a hierarchy).
 
 VNT should scale to millions of nodes, each containing potentially millions of children.
+
+Partly started as a Kotlin learning project. Sources are Kotlin. Some good progress was made
+at the low level but still a lot to do to make it useful.
+
+Not working on this any more due to other commitments, but still interested in the concepts.
+There is never the perfect CMS, and for me strong version and merge is a common weakness.
+Jackrabbit promised much but the workspace versioning never really worked well. Interwoven
+Teamsite worked well back in the day but was very file based. The concepts need bringing up
+to date but merging in a way that an editor can understand is a challenge. 
+
+From what I read, Jackrabbit Oak (still in alpha) may share some of the principles of VNT.
